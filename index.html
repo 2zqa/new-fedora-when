@@ -116,7 +116,7 @@
 
 <body>
     <div class="container">
-        <h1>Fedora Releases</h1>
+        <h1><span id="fedora-version">Fedora 41</span> Releases On…</h1>
         <label for="version-select">Choose a version:</label>
         <select id="version-select">
             <option value="f-39">Fedora 39</option>
@@ -178,12 +178,16 @@
             countdownInterval = setInterval(calculateCountdown, 1000);
         }
 
-        versionSelect.addEventListener('change', (event) => {
-            fetchEventDate(event.target.value);
-        });
+        function updateVersion() {
+            const selectedVersionText = versionSelect.options[versionSelect.selectedIndex].text;
+            document.getElementById('fedora-version').textContent = selectedVersionText;
+            fetchEventDate(versionSelect.value);
+        }
+
+        versionSelect.addEventListener('change', updateVersion);
 
         // Fetch event date for the default selected version
-        fetchEventDate(versionSelect.value);
+        updateVersion();
     </script>
 </body>
 
