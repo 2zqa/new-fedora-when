@@ -142,7 +142,12 @@
                 .then(response => response.json())
                 .then(data => {
                     const eventDate = new Date(data.event_date);
-                    eventDateElement.textContent = eventDate.toDateString();
+                    eventDateElement.textContent = eventDate.toLocaleDateString(undefined, {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
                     updateCountdown(eventDate);
                 })
                 .catch(error => {
