@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Date</title>
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <h1>Fedora Releases</h1>
+        <label for="version-select">Choose a version:</label>
+        <select id="version-select">
+            <option value="f-39">Fedora 39</option>
+            <option value="f-40">Fedora 40</option>
+            <option value="f-41" selected>Fedora 41</option>
+            <option value="f-42">Fedora 42</option>
+            <option value="f-43">Fedora 43</option>
+        </select>
+        <p id="event-date">Loading...</p>
+    </div>
+
+    <script>
+        const versionSelect = document.getElementById('version-select');
+        const eventDateElement = document.getElementById('event-date');
+
+        function fetchEventDate(version) {
+            fetch(`https://new-fedora-when.2zqa.workers.dev/?version=${version}`)
+                .then(response => response.json())
+                .then(data => {
+                    const eventDate = new Date(data.event_date);
+                    eventDateElement.textContent = eventDate.toString();
+                })
+                .catch(error => {
+                    console.error('Error fetching event date:', error);
+                    eventDateElement.textContent = 'Error loading event date';
+                });
+        }
+
+        versionSelect.addEventListener('change', (event) => {
+            fetchEventDate(event.target.value);
+        });
+
+        // Fetch event date for the default selected version
+        fetchEventDate(versionSelect.value);
+    </script>
+</body>
+
+</html>
