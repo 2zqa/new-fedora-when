@@ -24,9 +24,11 @@
     <script>
         const versionSelect = document.getElementById('version-select');
         const eventDateElement = document.getElementById('event-date');
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '0.0.0.0';
+        const baseUrl = isLocalhost ? 'http://localhost:8787' : 'https://new-fedora-when.2zqa.workers.dev';
 
         function fetchEventDate(version) {
-            fetch(`https://new-fedora-when.2zqa.workers.dev/?version=${version}`)
+            fetch(`${baseUrl}/?version=${version}`)
                 .then(response => response.json())
                 .then(data => {
                     const eventDate = new Date(data.event_date);
