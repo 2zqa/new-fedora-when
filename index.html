@@ -4,11 +4,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Date</title>
+    <title>Fedora Releases</title>
+    <style>
+        :root {
+            --background-color: #f4f7f6;
+            --text-color: #333;
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --hover-bg-color: #dceefb;
+            --container-bg-color: #fff;
+            --container-shadow-color: rgba(0, 0, 0, 0.1);
+            --label-color: #34495e;
+            --select-bg-color: #ecf0f1;
+            --date-color: #27ae60;
+        }
+
+        /* Dark theme variables */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #1c1c1e;
+                --text-color: #e5e5e7;
+                --primary-color: #007aff;
+                --secondary-color: #f4f4f4;
+                --hover-bg-color: #4a4a4c;
+                --container-bg-color: #2c2c2e;
+                --container-shadow-color: rgba(255, 255, 255, 0.1);
+                --label-color: #a0a0a5;
+                --select-bg-color: #3a3a3c;
+                --date-color: #34c759;
+            }
+        }
+
+        /* Simple reset to remove default padding and margin */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: var(--container-bg-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--container-shadow-color);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            color: var(--label-color);
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 1.1em;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            background-color: var(--select-bg-color);
+            color: var(--label-color);
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+
+        select:hover {
+            background-color: var(--hover-bg-color);
+        }
+
+        p {
+            font-size: 1.5em;
+            color: var(--date-color);
+            margin-top: 20px;
+        }
+
+        /* Media queries to make it responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            select {
+                font-size: 1em;
+            }
+
+            p {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
-    <div style="text-align: center;">
+    <div class="container">
         <h1>Fedora Releases</h1>
         <label for="version-select">Choose a version:</label>
         <select id="version-select">
@@ -32,7 +139,7 @@
                 .then(response => response.json())
                 .then(data => {
                     const eventDate = new Date(data.event_date);
-                    eventDateElement.textContent = eventDate.toString();
+                    eventDateElement.textContent = eventDate.toDateString();
                 })
                 .catch(error => {
                     console.error('Error fetching event date:', error);
