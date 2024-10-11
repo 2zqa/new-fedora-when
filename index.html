@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fedora Releases</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --background-color: #f4f7f6;
@@ -174,7 +175,21 @@
 
                     eventCountdownElement.textContent = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
                 } else {
-                    eventCountdownElement.textContent = `${versionSelect.options[versionSelect.selectedIndex].text} is released!`;
+                    confetti({
+                        disableForReducedMotion: true,
+                        startVelocity: 55,
+                        particleCount: 100,
+                        spread: 135,
+                        zIndex: -1,
+                        origin: { y: 0.6 }
+                    });
+                    eventCountdownElement.textContent = `${versionSelect.options[versionSelect.selectedIndex].text} is released! 🎉`;
+                    const subtext = document.createElement('small');
+                    subtext.style.color = 'grey';
+                    subtext.style.fontStyle = 'italic';
+                    subtext.textContent = 'Well, hopefully :)';
+                    eventCountdownElement.appendChild(document.createElement('br'));
+                    eventCountdownElement.appendChild(subtext);
                     clearInterval(countdownInterval);
                 }
             }
